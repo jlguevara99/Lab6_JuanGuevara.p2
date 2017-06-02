@@ -5,6 +5,7 @@
  */
 package lab6_juanguevara;
 
+import java.io.IOException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -17,6 +18,8 @@ public class Supermercado extends javax.swing.JFrame {
     /**
      * Creates new form Supermercado
      */
+    administrarProductos ap = new administrarProductos("./products.txt");
+
     public Supermercado() {
         initComponents();
     }
@@ -58,6 +61,8 @@ public class Supermercado extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
         clientes = new javax.swing.JDialog();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -181,10 +186,29 @@ public class Supermercado extends javax.swing.JFrame {
         });
 
         jButton6.setText("Eliminar");
+        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton6MouseClicked(evt);
+            }
+        });
 
         jButton7.setText("Modificar");
+        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton7MouseClicked(evt);
+            }
+        });
 
         jLabel14.setText("Productos");
+
+        jButton11.setText("Guardar");
+        jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton11MouseClicked(evt);
+            }
+        });
+
+        jButton12.setText("Cargar");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -216,20 +240,30 @@ public class Supermercado extends javax.swing.JFrame {
                         .addComponent(jButton6)
                         .addGap(18, 18, 18)
                         .addComponent(jButton7)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel14)
-                        .addGap(67, 67, 67))))
+                        .addGap(67, 67, 67))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton12)
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton11)
+                        .addComponent(jButton12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -334,6 +368,11 @@ public class Supermercado extends javax.swing.JFrame {
         jLabel13.setText("Comprados");
 
         jButton9.setText("Comprar");
+        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton9MouseClicked(evt);
+            }
+        });
 
         jButton10.setText("Facturar");
 
@@ -470,11 +509,11 @@ public class Supermercado extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-        DefaultListModel m = (DefaultListModel)clientes1.getModel();
-        DefaultListModel m2 = (DefaultListModel)clientes2.getModel();
+        DefaultListModel m = (DefaultListModel) clientes1.getModel();
+        DefaultListModel m2 = (DefaultListModel) clientes2.getModel();
         try {
-            m.addElement(new Clientes(c_nombre.getText(),Integer.parseInt(c_edad.getText())));
-            m2.addElement(new Clientes(c_nombre.getText(),Integer.parseInt(c_edad.getText())));
+            m.addElement(new Clientes(c_nombre.getText(), Integer.parseInt(c_edad.getText())));
+            m2.addElement(new Clientes(c_nombre.getText(), Integer.parseInt(c_edad.getText())));
             clientes1.setModel(m);
             clientes2.setModel(m2);
             c_nombre.setText("");
@@ -487,12 +526,12 @@ public class Supermercado extends javax.swing.JFrame {
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
-        DefaultListModel m = (DefaultListModel)clientes1.getModel();
-        DefaultListModel m2 = (DefaultListModel)clientes2.getModel();
+        DefaultListModel m = (DefaultListModel) clientes1.getModel();
+        DefaultListModel m2 = (DefaultListModel) clientes2.getModel();
         try {
             m.remove(clientes1.getSelectedIndex());
             clientes2.setModel(m);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(admin, "No ha seleccionado ningun dato");
         }
@@ -500,41 +539,96 @@ public class Supermercado extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-        DefaultListModel m = (DefaultListModel)productos1.getModel();
-        administrarProductos ap = new administrarProductos("./productos");
+        DefaultListModel m = (DefaultListModel) productos1.getModel();
+        DefaultListModel m2 = (DefaultListModel) productos2.getModel();
+        //ap.setProducto(new Producto("lol","cat",99,3));
         try {
+
             m.addElement(new Producto(
-                    p_nombre.getText(),p_categoria.getText(),Double.parseDouble(p_precio.getText()),Double.parseDouble(p_descuento.getText())));
-            ap.cargarArchivo();
+                    p_nombre.getText(), p_categoria.getText(), Double.parseDouble(p_precio.getText()), Double.parseDouble(p_descuento.getText())));
+            m2.addElement(new Producto(
+                    p_nombre.getText(), p_categoria.getText(), Double.parseDouble(p_precio.getText()), Double.parseDouble(p_descuento.getText())));
+            productos1.setModel(m);
+            productos2.setModel(m2);
+            /*ap.cargarArchivo();
             ap.getProductos().add(new Producto(
-                    p_nombre.getText(),p_categoria.getText(),Double.parseDouble(p_precio.getText()),Double.parseDouble(p_descuento.getText())));
-            ap.escribirArchivos();
+                    p_nombre.getText(), p_categoria.getText(), Double.parseDouble(p_precio.getText()), Double.parseDouble(p_descuento.getText())));
+            ap.escribirArchivos();*/
             p_nombre.setText("");
             p_categoria.setText("");
             p_precio.setText("");
             p_descuento.setText("");
-            productos2.setModel(m);
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
         // TODO add your handling code here:
-        if (clientes2.getSelectedIndex()>=0) {
+        if (clientes2.getSelectedIndex() >= 0) {
             Compras.setModal(true);
-        Compras.pack();
-        Compras.setLocationRelativeTo(this);
-        Compras.setVisible(true);
-        }else{
+            Compras.pack();
+            Compras.setLocationRelativeTo(this);
+            Compras.setVisible(true);
+        } else {
             JOptionPane.showMessageDialog(clientes, "No ha seleccionado Cliente\no no hay clientes");
         }
-        
+
     }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        // TODO add your handling code here:
+        DefaultListModel m = (DefaultListModel) productos1.getModel();
+        try {
+            m.remove(productos1.getSelectedIndex());
+            /*ap.cargarArchivo();
+            ap.getProductos().remove(0);
+            ap.escribirArchivos();*/
+            productos2.setModel(m);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(admin, "No ha seleccionado ningun dato");
+        }
+    }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
+        // TODO add your handling code here:
+        ap.cargarArchivo();
+
+    }//GEN-LAST:event_jButton11MouseClicked
+
+    private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
+        // TODO add your handling code here:
+        DefaultListModel m = (DefaultListModel) productos1.getModel();
+
+        try {
+
+            m.addElement(new Producto(
+                    p_nombre.getText(), p_categoria.getText(), Double.parseDouble(p_precio.getText()), Double.parseDouble(p_descuento.getText())));
+            productos2.setModel(m);
+            m.remove(productos1.getSelectedIndex());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No ha ingresado datos");
+        }
+    }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseClicked
+        // TODO add your handling code here:
+        DefaultListModel m = (DefaultListModel)productos2.getModel();
+        DefaultListModel m2 = (DefaultListModel)compra.getModel();
+        if (productos2.getSelectedIndex() >= 0) {
+            m2.addElement(productos2.getSelectedValuesList());
+            m.remove(productos2.getSelectedIndex());
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado nada");
+
+        }
+    }//GEN-LAST:event_jButton9MouseClicked
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -577,6 +671,8 @@ public class Supermercado extends javax.swing.JFrame {
     private javax.swing.JList<String> compra;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -614,4 +710,5 @@ public class Supermercado extends javax.swing.JFrame {
     private javax.swing.JList<String> productos1;
     private javax.swing.JList<String> productos2;
     // End of variables declaration//GEN-END:variables
+
 }
