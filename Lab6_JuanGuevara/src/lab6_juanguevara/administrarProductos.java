@@ -69,7 +69,7 @@ public class administrarProductos {
     
     public void cargarArchivo(){
         Scanner sc = null;
-        productos = new ArrayList();
+        
         try {
             sc = new Scanner(archivo);
             sc.useDelimiter(";");
